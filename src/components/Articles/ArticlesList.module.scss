@@ -1,0 +1,13 @@
+.articlesList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    flex-direction: row;
+    padding-left: 0;
+    .listItem {
+        width: 30%;
+        background-color: green;     
+        list-style: none;
+        margin-bottom: 15px;
+    }
+}

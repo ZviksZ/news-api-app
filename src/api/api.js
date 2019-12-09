@@ -1,12 +1,16 @@
 import * as axios from "axios";
 
-/*
+
 const instance = axios.create({
-   withCredentials: true,
-   baseURL: 'https://social-network.samuraijs.com/api/1.0/',
-   headers: {
-      'API-KEY': 'b27a57c5-de93-458a-ad82-c833d0eeb199'
-   }
-})*/
+   baseURL: 'https://newsapi.org/v2/',
+})
 
 
+export const newsAPI = {
+   getTopNewsList(request) {
+      return instance.get(`top-headlines?${request}&apiKey=871fa6f8f31d4dd0a89793d18e19fd82`)
+   },
+   getEverythingNewsList(request) {
+      return instance.get(`top-headlines?${request}&apiKey=871fa6f8f31d4dd0a89793d18e19fd82`)
+   },
+}
