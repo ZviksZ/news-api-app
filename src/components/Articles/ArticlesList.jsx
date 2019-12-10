@@ -4,7 +4,7 @@ import styles         from './ArticlesList.module.scss'
 
 export const ArticlesList = ({articles}) => {
    return (
-      <ul className={styles.articlesList}>
+      <ul className={`list-group ${styles.articlesList}`}>
          {            
             articles.map(m => <ArticlesItem key={m.publishedAt} item={m}/>)
          }

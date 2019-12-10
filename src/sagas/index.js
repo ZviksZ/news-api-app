@@ -1,28 +1,54 @@
 import {put, takeLatest, all, call} from 'redux-saga/effects';
-import {getNewsList}          from "../redux/newsReducer.js";
-import axios from "axios";
+import {setNewsList, setSources}    from "../redux/newsReducer.js";
+import axios                        from "axios";
 
-function* fetchNews(action) {
+const instance = axios.create({
+   baseURL: 'https://newsapi.org/v2/',
+})
+const apiKey = 'apiKey=871fa6f8f31d4dd0a89793d18e19fd82'
+
+/*---------------------News-------------------*/
+
+function* fetchNewsSaga(action) {
    try {
-      let requestTitles = action.titles[0]
+      let requestTitles = action.titles[0] || []
       const request = requestTitles.join('&');
-      console.log(request)
-      const response = yield call(axios.get, `https://newsapi.org/v2/${action.typeOfRequest}?${request}&apiKey=871fa6f8f31d4dd0a89793d18e19fd82`);
-
+      const response = yield call(instance.get, `${action.typeOfRequest}?${request}&${apiKey}`);
       if (response.data.status === 'ok') {
-         yield put(getNewsList(response.data.articles));
+         yield put(setNewsList(response.data.articles));
       }
    } catch (e) {
-      alert(e.message)
+      alert('Загрузка не удалась')
+   }
+}
+function* fetchNewsWatcher() {
+   yield takeLatest('news-app/news/GET_NEWS_LIST', fetchNewsSaga)
+}
+
+/*---------------------Sources-------------------*/
+
+function* fetchSourcesSaga(action) {
+   try {
+      let requestTitles = action.titles[0] || []
+      const request = requestTitles.join('&');
+      const response = yield call(instance.get, `sources?${request}&${apiKey}`);
+      if (response.data.status === 'ok') {
+         yield put(setSources(response.data.sources));
+      }
+   } catch (e) {
+      alert('Загрузка не удалась')
    }
 }
 
-function* fetchNewsWatcher() {
-   yield takeLatest('news-app/news/GET_NEWS_LIST', fetchNews)
+function* fetchSourcesWatcher() {
+   yield takeLatest('news-app/news/GET_SOURCES', fetchSourcesSaga)
 }
+
+/*---------------------Root-------------------*/
 
 export default function* rootSaga() {
    yield all([
       fetchNewsWatcher(),
+      fetchSourcesWatcher(),
    ]);
 }

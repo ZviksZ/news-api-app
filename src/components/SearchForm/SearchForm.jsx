@@ -4,9 +4,8 @@ import {Field, reduxForm} from "redux-form";
 import styles             from './SearchForm.module.scss'
 
 
-const SearchForm = ({handleSubmit}) => {
-   
-   
+const SearchForm = ({handleSubmit, sources}) => {
+
    return (
       <form onSubmit={handleSubmit} className={styles.searchForm}>
 
@@ -45,6 +44,14 @@ const SearchForm = ({handleSubmit}) => {
                placeholder="Введите запрос, который Вас интересует"
             />
          </div>
+
+         <Field name="sourceSelect" component="select" className="custom-select">
+            <option value={''}>Все источники</option>
+            {
+               
+               sources.map(s => <option value={s.id}>{s.name}</option>)
+            }
+         </Field>
 
          <div className="form-group mb-3 mt-3">
             <Field
