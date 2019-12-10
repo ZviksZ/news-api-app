@@ -4,7 +4,9 @@ import axios from "axios";
 
 function* fetchNews(action) {
    try {
-      const request = action.titles.join('&');
+      let requestTitles = action.titles[0]
+      const request = requestTitles.join('&');
+      console.log(request)
       const response = yield call(axios.get, `https://newsapi.org/v2/${action.typeOfRequest}?${request}&apiKey=871fa6f8f31d4dd0a89793d18e19fd82`);
 
       if (response.data.status === 'ok') {

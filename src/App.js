@@ -11,16 +11,24 @@ import {store}             from "./redux/store.js";
 
 const App = (props) => {
    useEffect(() => {
-      props.getNews('top-headlines', 'country=ru')
+      props.getNews('top-headlines', ['country=ru'])
    }, [])
 
    const onSubmitSearchForm = (values) => {
-      console.log(values)
-
-      const q = `q=${values.searchInput}`;
-      
-      console.log(q)
-      /*props.getNews(values.searchType, 'country=ru')*/
+      const typeOfRequest = values.searchType === 'top' ? 'top-headlines' : 'everything'
+      const titles = []
+      Object.keys(values).map(key => {
+         if (key !== 'searchType') {
+            if (key === 'searchInput') {
+               const q = `q=${values[key]}`;
+               titles.push(q)               
+            } else {
+               titles.push(values[key])
+            }
+            
+         }
+      })
+      props.getNews(typeOfRequest, titles)
    }
 
 

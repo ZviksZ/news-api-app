@@ -5,6 +5,8 @@ import styles             from './SearchForm.module.scss'
 
 
 const SearchForm = ({handleSubmit}) => {
+   
+   
    return (
       <form onSubmit={handleSubmit} className={styles.searchForm}>
 
@@ -15,6 +17,7 @@ const SearchForm = ({handleSubmit}) => {
                          className="form-check-input"
                          component="input"
                          type="radio"
+                         required
                          value="top"/>{' '}
                   Топ заголовки
                </label>
@@ -25,6 +28,7 @@ const SearchForm = ({handleSubmit}) => {
                          className="form-check-input"
                          component="input"
                          type="radio"
+                         required
                          value="everything"/>{' '}
                   Все заголовки
                </label>
