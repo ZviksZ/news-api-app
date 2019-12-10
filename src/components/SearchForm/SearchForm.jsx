@@ -1,19 +1,67 @@
 import React              from 'react';
+import {Button}           from "react-bootstrap";
 import {Field, reduxForm} from "redux-form";
+import styles             from './SearchForm.module.scss'
 
 
 const SearchForm = ({handleSubmit}) => {
    return (
-      <form>
-         <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example">
-            <Tab eventKey="home" title="Home">
-               <Sonnet/>
-            </Tab>
-            <Tab eventKey="profile" title="Profile">
-               <Sonnet/>
-            </Tab>
-         </Tabs>
-      </form>      
+      <form onSubmit={handleSubmit} className={styles.searchForm}>
+
+         <div className="mb-3 mt-3">
+            <div className="form-check">
+               <label className="form-check-label">
+                  <Field name="searchType"
+                         className="form-check-input"
+                         component="input"
+                         type="radio"
+                         value="top"/>{' '}
+                  Топ заголовки
+               </label>
+            </div>
+            <div className="form-check">
+               <label className="form-check-label">
+                  <Field name="searchType"
+                         className="form-check-input"
+                         component="input"
+                         type="radio"
+                         value="everything"/>{' '}
+                  Все заголовки
+               </label>
+            </div>
+
+
+         </div>
+         <div className="form-group mb-3 mt-3">
+            <Field
+               name="searchInput"
+               className="form-control"
+               component="input"
+               type="text"
+               placeholder="Введите запрос, который Вас интересует"
+            />
+         </div>
+
+         <div className="form-group mb-3 mt-3">
+            <Field
+               name="fromDate"
+               className="form-control"
+               component="input"
+               type="date"
+               placeholder="Введите запрос, который Вас интересует"
+            />
+            <Field
+               name="toDate"
+               className="form-control"
+               component="input"
+               type="date"
+               placeholder="Введите запрос, который Вас интересует"
+            />
+         </div>
+
+
+         <Button type="submit" variant="success">Поиск</Button>
+      </form>
    )
 }
 

@@ -1,11 +1,11 @@
 .articlesList {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: space-between;
     flex-direction: row;
-    padding-left: 0;
+    padding: 20px 0;
     .listItem {
-        width: 30%;
+        width: 48%;
         background-color: green;     
         list-style: none;
         margin-bottom: 15px;

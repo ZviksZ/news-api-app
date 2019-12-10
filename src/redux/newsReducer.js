@@ -1,6 +1,4 @@
-import {newsAPI} from "../api/api.js";
-
-
+const SET_NEWS_LIST = 'news-app/news/SET_NEWS_LIST';
 const GET_NEWS_LIST = 'news-app/news/GET_NEWS_LIST';
 
 let initialState = {
@@ -9,26 +7,18 @@ let initialState = {
 
 export const newsReducer = (state = initialState, action) => {
    switch (action.type) {
-      case GET_NEWS_LIST:
+      case SET_NEWS_LIST:
          return {
             ...state,
             articles: action.articles
-         }     
+         }
       default:
          return state;
    }
 }
 
-export const getNewsList = (articles) => ({type: GET_NEWS_LIST, articles})
+export const getNewsList = (articles) => ({type: SET_NEWS_LIST, articles});
 
-export const requestNews = (typeOfRequest, ...titles) => async (dispatch) => {  
-   const request = titles.join('&')
-   let response = await newsAPI.getTopNewsList(typeOfRequest, request).then(response => response.data);
-   
-   console.log(response)
-   
-   if (response.status === 'ok') {
-      dispatch(getNewsList(response.articles))
-   }
 
-}
+//saga action creator
+export const getNews = (typeOfRequest, ...titles) => ({type: GET_NEWS_LIST, typeOfRequest, titles});
