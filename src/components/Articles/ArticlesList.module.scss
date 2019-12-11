@@ -4,10 +4,47 @@
     justify-content: space-between;
     flex-direction: row;
     padding: 20px 0;
+    
     .listItem {
-        width: 48%;
+        width: 100%;
         list-style: none;
         margin-bottom: 15px;
         border: 1px solid rgba(0,0,0,.125);
+        padding-bottom: 300px;
+        position: relative;
+        perspective: 1000px;
+    }
+    .articleImg {
+        width: 150px;
+    }
+    .front, .back {
+        position: absolute;
+        width: 100%;
+        left: 0;
+        top: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: 1s;
+        backface-visibility: hidden;
+        border-radius: 10px;
+    }
+    .front {
+        background-color: #fff;
+    }
+    .back {
+        background-color: #BDBDBD;
+        transform: rotateY(180deg);
+    }
+    .frontClk {
+        transform: rotateY(180deg);
+    }
+    .backClk {
+        transform: rotateY(360deg);
+    }
+    .fullBtn {
+        position: absolute;
+        bottom: 0;
+        left: 0;
     }
 }
