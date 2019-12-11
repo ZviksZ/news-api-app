@@ -26,11 +26,15 @@ const App = (props) => {
             } else if (key === 'sourceSelect') {
                const source = `sources=${values[key]}`;
                titles.push(source)
+            } else if (key === 'countrySelect') {
+               const source = `country=${values[key]}`;
+               titles.push(source)
             } else {
                titles.push(values[key])
             }            
          }
       })
+      console.log(typeOfRequest)
       props.getNews(typeOfRequest, titles)
    }
 

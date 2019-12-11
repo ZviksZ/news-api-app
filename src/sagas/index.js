@@ -4,16 +4,21 @@ import axios                        from "axios";
 
 const instance = axios.create({
    baseURL: 'https://newsapi.org/v2/',
+   headers: {
+      'X-Api-Key': '871fa6f8f31d4dd0a89793d18e19fd82'
+   }
 })
-const apiKey = 'apiKey=871fa6f8f31d4dd0a89793d18e19fd82'
 
 /*---------------------News-------------------*/
 
 function* fetchNewsSaga(action) {
    try {
       let requestTitles = action.titles[0] || []
-      const request = requestTitles.join('&');
-      const response = yield call(instance.get, `${action.typeOfRequest}?${request}&${apiKey}`);
+      
+      const request = requestTitles.length > 0 ? '?' + requestTitles.join('&') : ''
+      const response = yield call(instance.get, `${action.typeOfRequest}${request}`);
+      
+      console.log(response)
       if (response.data.status === 'ok') {
          yield put(setNewsList(response.data.articles));
       }
@@ -30,8 +35,8 @@ function* fetchNewsWatcher() {
 function* fetchSourcesSaga(action) {
    try {
       let requestTitles = action.titles[0] || []
-      const request = requestTitles.join('&');
-      const response = yield call(instance.get, `sources?${request}&${apiKey}`);
+      const request = requestTitles.length > 0 ? '?' + requestTitles.join('&') : ''
+      const response = yield call(instance.get, `sources${request}`);
       if (response.data.status === 'ok') {
          yield put(setSources(response.data.sources));
       }

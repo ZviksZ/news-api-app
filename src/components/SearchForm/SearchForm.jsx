@@ -1,41 +1,48 @@
-import React              from 'react';
+import React, {useState}  from 'react';
 import {Button}           from "react-bootstrap";
 import {Field, reduxForm} from "redux-form";
 import styles             from './SearchForm.module.scss'
 
 
 const SearchForm = ({handleSubmit, sources}) => {
-
+   const [checkedField, setCheckedField] = useState('')
+   const countries = [];
+   
+   const typeClick = e => setCheckedField(e.currentTarget.value)
+   
    return (
       <form onSubmit={handleSubmit} className={styles.searchForm}>
-
          <div className="mb-3 mt-3">
-            <div className="form-check">
-               <label className="form-check-label">
-                  <Field name="searchType"
-                         className="form-check-input"
-                         component="input"
-                         type="radio"
-                         required
-                         value="top"/>{' '}
-                  Топ заголовки
-               </label>
+            <h4>Выберите тип запроса</h4>
+            <div className="d-flex">
+               <div className="form-check mr-4">
+                  <label className="form-check-label">
+                     <Field name="searchType"
+                            className="form-check-input"
+                            component="input"
+                            type="radio"
+                            required
+                            onClick={typeClick}
+                            value="top"/>{' '}
+                     Топ заголовки
+                  </label>
+               </div>
+               <div className="form-check">
+                  <label className="form-check-label">
+                     <Field name="searchType"
+                            className="form-check-input"
+                            component="input"
+                            type="radio"
+                            required
+                            onClick={typeClick}
+                            value="everything"/>{' '}
+                     Все заголовки
+                  </label>
+               </div>
             </div>
-            <div className="form-check">
-               <label className="form-check-label">
-                  <Field name="searchType"
-                         className="form-check-input"
-                         component="input"
-                         type="radio"
-                         required
-                         value="everything"/>{' '}
-                  Все заголовки
-               </label>
-            </div>
-
-
          </div>
          <div className="form-group mb-3 mt-3">
+            <h4>Введите запрос</h4>
             <Field
                name="searchInput"
                className="form-control"
@@ -45,29 +52,61 @@ const SearchForm = ({handleSubmit, sources}) => {
             />
          </div>
 
-         <Field name="sourceSelect" component="select" className="custom-select">
-            <option value={''}>Все источники</option>
-            {
-               
-               sources.map(s => <option value={s.id}>{s.name}</option>)
-            }
-         </Field>
+         <div className="mb-4">
+            <h4>Выберите источник</h4>
+            <Field name="sourceSelect" component="select" className="custom-select">
+               <option value={''}>Все источники</option>
+               {
+                  sources.map(s => <option key={`source${s.id}`} value={s.id}>{s.name}</option>)
+               }
+            </Field>
+         </div>
 
-         <div className="form-group mb-3 mt-3">
-            <Field
-               name="fromDate"
-               className="form-control"
-               component="input"
-               type="date"
-               placeholder="Введите запрос, который Вас интересует"
-            />
-            <Field
-               name="toDate"
-               className="form-control"
-               component="input"
-               type="date"
-               placeholder="Введите запрос, который Вас интересует"
-            />
+
+         {
+            checkedField === 'top'
+               ? <div>
+                  <h4>Выберите страну</h4>
+                  <Field name="countrySelect" component="select" className="custom-select">
+                     <option value={''}>Все страны</option>
+                     {
+                        sources.map(s => {
+                           if (countries.indexOf(s.country) === -1) {
+                              countries.push(s.country)
+                           }
+                        })
+                     }
+                     {
+                        countries.length > 0 ? countries.map((c, i) => <option key={`country${i}`} value={c}>{c}</option>) : null
+                     }
+                  </Field>
+               </div>
+               :
+               null
+         }
+
+
+         <div className="form-group mb-3 mt-3 d-flex justify-content-between">
+            <div className={styles.dateItem}>
+               <h4>От</h4>
+               <Field
+                  name="fromDate"
+                  className="form-control"
+                  component="input"
+                  type="date"
+                  placeholder="Введите запрос, который Вас интересует"
+               />
+            </div>
+            <div className={styles.dateItem}>
+               <h4>До</h4>
+               <Field
+                  name="toDate"
+                  className="form-control"
+                  component="input"
+                  type="date"
+                  placeholder="Введите запрос, который Вас интересует"
+               />
+            </div>
          </div>
 
 
