@@ -1,6 +1,7 @@
 import {put, takeLatest, all, call}           from 'redux-saga/effects';
 import {setFetching, setNewsList, setSources} from "../redux/newsReducer.js";
 import axios                                  from "axios";
+import {reset} from 'redux-form';
 
 const instance = axios.create({
    baseURL: 'https://newsapi.org/v2/',
@@ -24,24 +25,18 @@ function* fetchSaga(action) {
             yield put(setSources(response.data.sources));
          } else {
             yield put(setNewsList(response.data.articles));
+            yield put(reset('search-news-form'));
          }
          yield put(setFetching())
+         
       }
    } catch (e) {
       alert('Загрузка не удалась')
    }
 }
-function* fetchWatcher() {
-   yield takeLatest('news-app/news/GET_NEWS_SOURCES_LIST', fetchSaga)
-}
-function* fetchSourcesWatcher() {
-   yield takeLatest('news-app/news/GET_SOURCES', fetchSaga)
-}
 /*---------------------Root-------------------*/
 
 export default function* rootSaga() {
-   yield all([
-      fetchWatcher(),
-      fetchSourcesWatcher()
-   ]);
+   yield takeLatest('news-app/news/GET_NEWS_SOURCES_LIST', fetchSaga)
+   yield takeLatest('news-app/news/GET_SOURCES', fetchSaga)
 }
