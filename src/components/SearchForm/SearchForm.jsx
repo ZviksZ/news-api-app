@@ -13,7 +13,7 @@ const SearchForm = ({handleSubmit, sources}) => {
    return (
       <form onSubmit={handleSubmit} className={styles.searchForm}>
          <div className="mb-3 mt-3">
-            <h4>Выберите тип запроса</h4>
+            <h5>Выберите тип запроса</h5>
             <div className="d-flex">
                <div className="form-check mr-4">
                   <label className="form-check-label">
@@ -42,7 +42,7 @@ const SearchForm = ({handleSubmit, sources}) => {
             </div>
          </div>
          <div className="form-group mb-3 mt-3">
-            <h4>Введите запрос</h4>
+            <h3>Введите запрос</h3>
             <Field
                name="searchInput"
                className="form-control"
@@ -52,8 +52,8 @@ const SearchForm = ({handleSubmit, sources}) => {
             />
          </div>
 
-         <div className="mb-4">
-            <h4>Выберите источник</h4>
+         <div className="mb-3">
+            <h5>Выберите источник</h5>
             <Field name="sourceSelect" component="select" className="custom-select">
                <option value={''}>Все источники</option>
                {
@@ -66,7 +66,7 @@ const SearchForm = ({handleSubmit, sources}) => {
          {
             checkedField === 'top'
                ? <div>
-                  <h4>Выберите страну</h4>
+                  <h5>Выберите страну</h5>
                   <Field name="countrySelect" component="select" className="custom-select">
                      <option value={''}>Все страны</option>
                      {
@@ -88,7 +88,7 @@ const SearchForm = ({handleSubmit, sources}) => {
 
          <div className="form-group mb-3 mt-3 d-flex justify-content-between">
             <div className={styles.dateItem}>
-               <h4>От</h4>
+               <h5>От</h5>
                <Field
                   name="fromDate"
                   className="form-control"
@@ -98,7 +98,7 @@ const SearchForm = ({handleSubmit, sources}) => {
                />
             </div>
             <div className={styles.dateItem}>
-               <h4>До</h4>
+               <h5>До</h5>
                <Field
                   name="toDate"
                   className="form-control"

@@ -11,7 +11,8 @@ export const ArticlesItem = ({item}) => {
    }
    
    return (
-      <li className={`list-group-item ${styles.listItem}`}>         
+      <li className={`list-group-item ${styles.listItem}`}>     
+         
          <div className={`${styles.front} ${fullMode ? styles.frontClk : ''}`}>
             <img src={item.urlToImage} alt="Article image" className={styles.articleImg}/>
             <h3>{item.title}</h3>
@@ -19,14 +20,15 @@ export const ArticlesItem = ({item}) => {
             <p>{item.source.name}</p>
             <p>{newDate}</p>
          </div>
-         <div className={`${styles.back} ${fullMode ? styles.backClk : ''}`}>
+         
+         <div className={`${styles.back} ${fullMode ? styles.backClk + ' bg-secondary' : ''}`}>
             <p>{item.description}</p>
             <a href={item.url} target="_blank">Подробнее</a>
          </div>
 
-         <button className={`${styles.fullBtn} btn btn-outline-success`} 
+         <button className={`${styles.fullBtn} btn btn-success`} 
                  onClick={toggleFullMode}>
-            Полная новость
+            {fullMode ? 'Краткое описание' : 'Полная новость'}
          </button>
       </li>
    )
