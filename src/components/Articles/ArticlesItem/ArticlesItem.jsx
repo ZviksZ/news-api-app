@@ -14,16 +14,21 @@ export const ArticlesItem = ({item}) => {
       <li className={`list-group-item ${styles.listItem}`}>     
          
          <div className={`${styles.front} ${fullMode ? styles.frontClk : ''}`}>
-            <img src={item.urlToImage} alt="Article image" className={styles.articleImg}/>
-            <h3>{item.title}</h3>
-            <p>{item.author} </p>
-            <p>{item.source.name}</p>
-            <p>{newDate}</p>
+            <div className={styles.articleImg}>
+               <img src={item.urlToImage} alt="Article image"/>
+            </div> 
+            <div className={styles.articleTitle}>
+               <h4>{item.title}</h4>
+               <p className={styles.articleSource}>Источник: <strong>{item.source.name}</strong></p>
+               <p>{newDate}</p>
+            </div>           
          </div>
          
-         <div className={`${styles.back} ${fullMode ? styles.backClk + ' bg-secondary' : ''}`}>
+         <div className={`${styles.back} ${fullMode ? styles.backClk : ''}`}>
             <p>{item.description}</p>
-            <a href={item.url} target="_blank">Подробнее</a>
+            <a href={item.url} target="_blank">
+               <button className="btn btn-outline-dark btn-sm">Подробнее</button>               
+            </a>
          </div>
 
          <button className={`${styles.fullBtn} btn btn-success`} 

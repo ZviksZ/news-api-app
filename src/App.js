@@ -18,8 +18,7 @@ const App = (props) => {
    }, [])
 
    const onSubmitSearchForm = (values) => {
-      const typeOfRequest = values.searchType === 'top' ? 'top-headlines' : 'everything'
-      
+      const typeOfRequest = values.searchType === 'top' ? 'top-headlines' : 'everything'      
       const titles = formTitles(values)     
       
       props.getNews(typeOfRequest, titles)
